@@ -34,6 +34,16 @@
 	NSURL *_URL;
 }
 
++ (NSBundle *)bundle
+{
+	NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"TUSafariActivity" withExtension:@"bundle"];
+	if (bundleURL) {
+		return [NSBundle bundleWithURL:bundleURL];
+	} else {
+		return [NSBundle mainBundle];
+	}
+}
+
 - (NSString *)activityType
 {
 	return NSStringFromClass([self class]);
@@ -41,12 +51,17 @@
 
 - (NSString *)activityTitle
 {
-	return NSLocalizedStringFromTable(@"Open in Safari", @"TUSafariActivity", nil);
+	return NSLocalizedStringFromTableInBundle(@"Open in Safari", @"TUSafariActivity", [TUSafariActivity bundle], nil);
 }
 
 - (UIImage *)activityImage
 {
-	return [UIImage imageNamed:@"Safari"];
+	NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"TUSafariActivity" withExtension:@"bundle"];
+	if (bundleURL) {
+		return [UIImage imageNamed:@"TUSafariActivity.bundle/Safari"];
+	} else {
+		return [UIImage imageNamed:@"Safari"];
+	}
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
