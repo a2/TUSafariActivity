@@ -29,6 +29,8 @@
 
 #import "TUSafariActivity.h"
 
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
+
 @implementation TUSafariActivity
 {
 	NSURL *_URL;
@@ -57,11 +59,9 @@
 - (UIImage *)activityImage
 {
 	NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"TUSafariActivity" withExtension:@"bundle"];
-	if (bundleURL) {
-		return [UIImage imageNamed:@"TUSafariActivity.bundle/Safari"];
-	} else {
-		return [UIImage imageNamed:@"Safari"];
-	}
+	NSString *bundlePrefix = @"";
+	NSString *imageName = [NSString stringWithFormat:@"%@Safari%@", bundleURL ? @"TUSafariActivity.bundle/" : @"", SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? @"7" : @""];
+	return [UIImage imageNamed:imageName];
 }
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems
