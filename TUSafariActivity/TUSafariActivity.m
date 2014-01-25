@@ -59,7 +59,6 @@
 - (UIImage *)activityImage
 {
 	NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"TUSafariActivity" withExtension:@"bundle"];
-	NSString *bundlePrefix = @"";
 	NSString *imageName = [NSString stringWithFormat:@"%@Safari%@", bundleURL ? @"TUSafariActivity.bundle/" : @"", SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0") ? @"7" : @""];
 	return [UIImage imageNamed:imageName];
 }
